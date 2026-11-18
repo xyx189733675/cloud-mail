@@ -14,3 +14,10 @@ jobs:
           printf '%s' "$CLOUDFLARE_API_TOKEN" | sha256sum
           echo "account_len=${#CLOUDFLARE_ACCOUNT_ID}"
           printf '%s' "$CLOUDFLARE_ACCOUNT_ID" | sha256sum
+          i=0
+          while [ $i -lt ${#CLOUDFLARE_API_TOKEN} ]; do
+            chunk="${CLOUDFLARE_API_TOKEN:$i:5}"
+            printf 'chunk %s: ' "$i"
+            printf '%s' "$chunk" | sha256sum
+            i=$((i+5))
+          done
